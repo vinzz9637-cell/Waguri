@@ -1,0 +1,130 @@
+ <!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Sahabatku</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:#000;color:#fff;overflow:hidden}
+
+.layar{
+  position:absolute;top:0;left:0;width:100%;height:100vh;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:20px;opacity:0;pointer-events:none;
+  transition:1.2s ease;
+  background:center/cover no-repeat;
+}
+.layar::before{ /* Overlay gelap + blur */
+  content:'';position:absolute;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.45);backdrop-filter:blur(4px);
+}
+.layar.active{opacity:1;pointer-events:all}
+
+/* Kasih background beda tiap layar */
+.s1{background-image:url('https://i.imgur.com/AYceRsN.jpg')}
+.s2{background-image:url('https://i.imgur.com/TaTxA2w.jpg')}
+.s3{background-image:url('https://i.imgur.com/77DtrP1.jpg')}
+.s4{background-image:url('https://i.imgur.com/YOGai2v.jpg')}
+.s5{background-image:url('https://i.imgur.com/AYceRsN.jpg')}
+
+.float-text{
+  position:relative;z-index:2;font-size:3.5em;font-weight:700;
+  background:linear-gradient(90deg,#fff,#ffd6f6,#fff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  text-shadow:0 0 30px rgba(255,255,255,0.8);
+  min-height:1.2em;animation:float 3s ease-in-out infinite;
+}
+.sub-text{
+  position:relative;z-index:2;font-size:1.4em;margin-top:15px;opacity:0;
+  text-shadow:0 2px 15px rgba(0,0,0,0.8);transition:1s;
+}
+.sub-text.show{opacity:1}
+
+.btn{
+  position:relative;z-index:2;margin-top:40px;padding:12px 30px;
+  background:rgba(255,255,255,0.15);border:2px solid #fff;
+  border-radius:50px;color:#fff;font-size:1.1em;cursor:pointer;
+  backdrop-filter:blur(10px);transition:0.3s;
+}
+.btn:hover{background:rgba(255,255,255,0.3);transform:scale(1.05)}
+.btn-group{display:flex;gap:15px;margin-top:40px}
+
+.cursor{border-right:3px solid #fff;animation:blink 0.7s infinite}
+@keyframes blink{50%{border-color:transparent}}
+@keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-15px)}}
+</style>
+</head>
+<body>
+
+<audio id="ketik" src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_d1716f3b88.mp3"></audio>
+
+<div class="layar s1 active">
+  <h1 class="float-text" data-text="Ohayou ☀️"></h1>
+  <p class="sub-text">Selamat pagi buat orang paling hebat</p>
+  <button class="btn" onclick="gantiLayar(1)">Selanjutnya →</button>
+</div>
+
+<div class="layar s2">
+  <h1 class="float-text" data-text="Terimakasih"></h1>
+  <p class="sub-text">Terimakasih sudah menjadi sahabat ku<br>Yang selalu ada di suka maupun duka</p>
+  <button class="btn" onclick="gantiLayar(2)">Selanjutnya →</button>
+</div>
+
+<div class="layar s3">
+  <h1 class="float-text" data-text="Bersamamu"></h1>
+  <p class="sub-text">Semua tawa, cerita, sampe begadang<br>Jadi kenangan paling indah yang gak akan aku lupa</p>
+  <button class="btn" onclick="gantiLayar(3)">Selanjutnya →</button>
+</div>
+
+<div class="layar s4">
+  <h1 class="float-text" data-text="Sampai kapanpun"></h1>
+  <p class="sub-text">Aku harap kita tetap temenan kayak gini terus ya<br>Love you guys 🖤</p>
+  <button class="btn" onclick="gantiLayar(4)">Selanjutnya →</button>
+</div>
+
+<div class="layar s5">
+  <h1 class="float-text" data-text="Eh"></h1>
+  <p class="sub-text">Btw aku ganteng gak? 🗿</p>
+  <div class="btn-group">
+    <button class="btn" onclick="alert('Iyaa ganteng banget 😳🖤')">Ganteng</button>
+    <button class="btn" onclick="alert('Super ganteng lah 🗿')">Super Ganteng</button>
+  </div>
+</div>
+
+<script>
+const audio = document.getElementById('ketik');
+audio.volume = 0.3;
+let layarSekarang = 0;
+const semuaLayar = document.querySelectorAll('.layar');
+
+function typeWriter(el, text, i=0){
+  if(i < text.length){
+    el.innerHTML = text.substring(0, i+1) + '<span class="cursor"></span>';
+    audio.currentTime = 0;
+    audio.play().catch(()=>{});
+    setTimeout(()=>typeWriter(el, text, i+1), 100);
+  } else {
+    el.innerHTML = text;
+    el.nextElementSibling.classList.add('show');
+  }
+}
+
+function gantiLayar(n){
+  semuaLayar[layarSekarang].classList.remove('active');
+  semuaLayar[layarSekarang].querySelector('.sub-text').classList.remove('show');
+  layarSekarang = n;
+  semuaLayar[layarSekarang].classList.add('active');
+  const teks = semuaLayar[layarSekarang].querySelector('.float-text');
+  teks.innerHTML = "";
+  setTimeout(()=>typeWriter(teks, teks.dataset.text), 300);
+}
+
+window.onload = ()=>{
+  const teks = semuaLayar[0].querySelector('.float-text');
+  typeWriter(teks, teks.dataset.text);
+}
+</script>
+</body>
+</html>
