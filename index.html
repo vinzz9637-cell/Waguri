@@ -1,130 +1,1013 @@
- <!DOCTYPE html>
-<html lang="id">
+```html
+<!DOCTYPE html>
+<html lang="id" class="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Untuk Sahabatku</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:#000;color:#fff;overflow:hidden}
-
-.layar{
-  position:absolute;top:0;left:0;width:100%;height:100vh;
-  display:flex;flex-direction:column;justify-content:center;align-items:center;
-  text-align:center;padding:20px;opacity:0;pointer-events:none;
-  transition:1.2s ease;
-  background:center/cover no-repeat;
-}
-.layar::before{ /* Overlay gelap + blur */
-  content:'';position:absolute;top:0;left:0;width:100%;height:100%;
-  background:rgba(0,0,0,0.45);backdrop-filter:blur(4px);
-}
-.layar.active{opacity:1;pointer-events:all}
-
-/* Kasih background beda tiap layar */
-.s1{background-image:url('https://i.imgur.com/AYceRsN.jpg')}
-.s2{background-image:url('https://i.imgur.com/TaTxA2w.jpg')}
-.s3{background-image:url('https://i.imgur.com/TaTxA2w.jpg')}
-.s4{background-image:url('https://i.imgur.com/YOGai2v.jpg')}
-.s5{background-image:url('https://i.imgur.com/AYceRsN.jpg')}
-
-.float-text{
-  position:relative;z-index:2;font-size:3.5em;font-weight:700;
-  background:linear-gradient(90deg,#fff,#ffd6f6,#fff);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  text-shadow:0 0 30px rgba(255,255,255,0.8);
-  min-height:1.2em;animation:float 3s ease-in-out infinite;
-}
-.sub-text{
-  position:relative;z-index:2;font-size:1.4em;margin-top:15px;opacity:0;
-  text-shadow:0 2px 15px rgba(0,0,0,0.8);transition:1s;
-}
-.sub-text.show{opacity:1}
-
-.btn{
-  position:relative;z-index:2;margin-top:40px;padding:12px 30px;
-  background:rgba(255,255,255,0.15);border:2px solid #fff;
-  border-radius:50px;color:#fff;font-size:1.1em;cursor:pointer;
-  backdrop-filter:blur(10px);transition:0.3s;
-}
-.btn:hover{background:rgba(255,255,255,0.3);transform:scale(1.05)}
-.btn-group{display:flex;gap:15px;margin-top:40px}
-
-.cursor{border-right:3px solid #fff;animation:blink 0.7s infinite}
-@keyframes blink{50%{border-color:transparent}}
-@keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-15px)}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAGURI AI - Platform AI & Media Tools All-in-One by VINZA</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            950: '#030014',
+                            900: '#0b061d',
+                            800: '#130b2e',
+                            700: '#1d1242',
+                        },
+                        neon: {
+                            purple: '#a855f7',
+                            blue: '#3b82f6',
+                            cyan: '#06b6d4',
+                            pink: '#ec4899',
+                        }
+                    },
+                    boxShadow: {
+                        'neon-glow': '0 0 25px rgba(168, 85, 247, 0.4)',
+                        'neon-blue': '0 0 25px rgba(59, 130, 246, 0.4)',
+                        'card-glow': '0 4px 30px rgba(0, 0, 0, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030014;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+        .glow-orb {
+            filter: blur(80px);
+            z-index: 0;
+            pointer-events: none;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b061d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1d1242;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a855f7;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-dark-950 text-gray-100 min-h-screen flex flex-col relative selection:bg-purple-500 selection:text-white">
 
-<audio id="ketik" src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_d1716f3b88.mp3"></audio>
+    <!-- Glowing Background Orbs -->
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-purple-600/25 rounded-full glow-orb"></div>
+    <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-blue-600/25 rounded-full glow-orb"></div>
+    <div class="absolute bottom-1/4 left-1/3 w-96 h-96 bg-cyan-600/20 rounded-full glow-orb"></div>
 
-<div class="layar s1 active">
-  <h1 class="float-text" data-text="Ohayou ☀️"></h1>
-  <p class="sub-text">Selamat pagi buat orang paling hebat</p>
-  <button class="btn" onclick="gantiLayar(1)">Selanjutnya →</button>
-</div>
+    <!-- Notification Toast Container -->
+    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-<div class="layar s2">
-  <h1 class="float-text" data-text="Terimakasih"></h1>
-  <p class="sub-text">Terimakasih sudah menjadi sahabat ku<br>Yang selalu ada di suka maupun duka</p>
-  <button class="btn" onclick="gantiLayar(2)">Selanjutnya →</button>
-</div>
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 backdrop-blur-xl bg-dark-950/80 border-b border-purple-900/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="switchView('home')">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-cyan-400 flex items-center justify-center shadow-neon-glow">
+                    <i class="fa-solid fa-cube text-white text-xl"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-wider bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">WAGURI</span>
+                    <span class="text-xs tracking-widest block text-cyan-400 font-semibold">AI TOOLS <span class="text-[10px] text-purple-300">by VINZA</span></span>
+                </div>
+            </div>
 
-<div class="layar s3">
-  <h1 class="float-text" data-text="Bersamamu"></h1>
-  <p class="sub-text">Semua tawa, cerita, sampe begadang<br>Jadi kenangan paling indah yang gak akan aku lupa</p>
-  <button class="btn" onclick="gantiLayar(3)">Selanjutnya →</button>
-</div>
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-1 bg-dark-900/60 border border-purple-900/20 px-3 py-1.5 rounded-full backdrop-blur-md">
+                <button onclick="switchView('home')" data-nav="home" class="nav-link px-4 py-2 rounded-full text-sm font-medium transition-all text-purple-400 bg-purple-950/50">Beranda</button>
+                <button onclick="switchView('dashboard')" data-nav="dashboard" class="nav-link px-4 py-2 rounded-full text-sm font-medium transition-all text-gray-300 hover:text-white hover:bg-white/5">Dashboard Tools</button>
+                <button onclick="switchView('video')" data-nav="video" class="nav-link px-4 py-2 rounded-full text-sm font-medium transition-all text-gray-300 hover:text-white hover:bg-white/5">Video</button>
+                <button onclick="switchView('image')" data-nav="image" class="nav-link px-4 py-2 rounded-full text-sm font-medium transition-all text-gray-300 hover:text-white hover:bg-white/5">Image</button>
+                <button onclick="switchView('audio')" data-nav="audio" class="nav-link px-4 py-2 rounded-full text-sm font-medium transition-all text-gray-300 hover:text-white hover:bg-white/5">Audio</button>
+                <button onclick="switchView('ai')" data-nav="ai" class="nav-link px-4 py-2 rounded-full text-sm font-medium transition-all text-gray-300 hover:text-white hover:bg-white/5">AI Suite</button>
+            </nav>
 
-<div class="layar s4">
-  <h1 class="float-text" data-text="Sampai kapanpun"></h1>
-  <p class="sub-text">Aku harap kita tetap temenan kayak gini terus ya<br>Love you guys 🖤</p>
-  <button class="btn" onclick="gantiLayar(4)">Selanjutnya →</button>
-</div>
+            <!-- Right Controls -->
+            <div class="flex items-center gap-3">
+                <button onclick="toggleLanguage()" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-dark-900 border border-purple-900/30 text-xs font-semibold hover:border-purple-500/50 transition-all">
+                    <i class="fa-solid fa-globe text-cyan-400"></i>
+                    <span id="lang-label">ID</span>
+                </button>
 
-<div class="layar s5">
-  <h1 class="float-text" data-text="Eh"></h1>
-  <p class="sub-text">Btw aku ganteng gak? 🗿</p>
-  <div class="btn-group">
-    <button class="btn" onclick="alert('Iyaa ganteng banget 😳🖤')">Ganteng</button>
-    <button class="btn" onclick="alert('Super ganteng lah 🗿')">Super Ganteng</button>
-  </div>
-</div>
+                <button id="admin-nav-btn" onclick="switchView('admin')" class="hidden items-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-orange-600 text-white text-xs font-bold shadow-lg hover:opacity-90 transition-all">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span class="hidden sm:inline">Admin</span>
+                </button>
 
-<script>
-const audio = document.getElementById('ketik');
-audio.volume = 0.3;
-let layarSekarang = 0;
-const semuaLayar = document.querySelectorAll('.layar');
+                <div id="auth-container">
+                    <button onclick="openAuthModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs sm:text-sm font-semibold shadow-neon-glow hover:scale-105 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-user-astronaut"></i>
+                        <span>Masuk / Daftar</span>
+                    </button>
+                </div>
 
-function typeWriter(el, text, i=0){
-  if(i < text.length){
-    el.innerHTML = text.substring(0, i+1) + '<span class="cursor"></span>';
-    audio.currentTime = 0;
-    audio.play().catch(()=>{});
-    setTimeout(()=>typeWriter(el, text, i+1), 100);
-  } else {
-    el.innerHTML = text;
-    el.nextElementSibling.classList.add('show');
-  }
-}
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl bg-dark-900 border border-purple-900/30 text-gray-300 hover:text-white">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
 
-function gantiLayar(n){
-  semuaLayar[layarSekarang].classList.remove('active');
-  semuaLayar[layarSekarang].querySelector('.sub-text').classList.remove('show');
-  layarSekarang = n;
-  semuaLayar[layarSekarang].classList.add('active');
-  const teks = semuaLayar[layarSekarang].querySelector('.float-text');
-  teks.innerHTML = "";
-  setTimeout(()=>typeWriter(teks, teks.dataset.text), 300);
-}
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-purple-900/30 bg-dark-950/95 px-4 pt-3 pb-6 flex flex-col gap-2">
+            <button onclick="switchView('home'); toggleMobileMenu();" class="text-left px-4 py-3 rounded-xl bg-white/5 font-medium">Beranda</button>
+            <button onclick="switchView('dashboard'); toggleMobileMenu();" class="text-left px-4 py-3 rounded-xl hover:bg-white/5 font-medium">Dashboard Tools</button>
+            <button onclick="switchView('video'); toggleMobileMenu();" class="text-left px-4 py-3 rounded-xl hover:bg-white/5 font-medium">Video Tools</button>
+            <button onclick="switchView('image'); toggleMobileMenu();" class="text-left px-4 py-3 rounded-xl hover:bg-white/5 font-medium">Image Tools</button>
+            <button onclick="switchView('audio'); toggleMobileMenu();" class="text-left px-4 py-3 rounded-xl hover:bg-white/5 font-medium">Audio Tools</button>
+            <button onclick="switchView('ai'); toggleMobileMenu();" class="text-left px-4 py-3 rounded-xl hover:bg-white/5 font-medium">AI Suite</button>
+            <button onclick="switchView('about'); toggleMobileMenu();" class="text-left px-4 py-3 rounded-xl hover:bg-white/5 font-medium">Tentang Kami</button>
+            <button onclick="switchView('contact'); toggleMobileMenu();" class="text-left px-4 py-3 rounded-xl hover:bg-white/5 font-medium">Hubungi Kami (Admin)</button>
+        </div>
+    </header>
 
-window.onload = ()=>{
-  const teks = semuaLayar[0].querySelector('.float-text');
-  typeWriter(teks, teks.dataset.text);
-}
-</script>
+    <!-- MAIN APP CONTENT CONTAINER -->
+    <main class="flex-grow">
+
+        <!-- ================= 1. HOMEPAGE VIEW ================= -->
+        <div id="view-home" class="view-section">
+            <section class="relative pt-16 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-950/60 border border-purple-500/30 text-purple-300 text-xs sm:text-sm font-medium mb-6 shadow-neon-glow animate-pulse">
+                    <i class="fa-solid fa-wand-magic-sparkles text-cyan-400"></i>
+                    <span>Dikembangkan oleh VINZA &bull; Platform AI & Media Tools 2026</span>
+                </div>
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
+                    Platform AI & Media Tools <br>
+                    <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">All-in-One Tercepat</span>
+                </h1>
+                <p class="max-w-2xl mx-auto text-gray-400 text-base sm:text-lg mb-10">
+                    Unduh video TikTok tanpa watermark, upscaling foto HD/4K dengan AI, konversi audio, dan akses puluhan utilities canggih secara instan.
+                </p>
+
+                <!-- Search Bar Hero -->
+                <div class="max-w-2xl mx-auto relative mb-12">
+                    <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-magnifying-glass text-purple-400"></i>
+                    </div>
+                    <input type="text" id="hero-search-input" oninput="handleGlobalSearch(this.value)" placeholder="Cari tool (contoh: TikTok Downloader, AI Upscaler, QR Code)..." class="w-full pl-14 pr-32 py-4 bg-dark-900/90 border border-purple-900/40 rounded-2xl text-sm sm:text-base text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20 shadow-card-glow">
+                    <div class="absolute inset-y-1.5 right-1.5">
+                        <button onclick="switchView('dashboard')" class="h-full px-6 bg-gradient-to-r from-purple-600 to-cyan-500 rounded-xl font-semibold text-xs sm:text-sm text-white shadow-neon-glow hover:opacity-90 transition-all">
+                            Jelajahi
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quick Category Pills -->
+                <div class="flex flex-wrap items-center justify-center gap-3">
+                    <button onclick="filterToolsByCategory('all')" class="cat-pill active px-5 py-2.5 rounded-xl bg-purple-600 text-white font-medium text-xs sm:text-sm shadow-neon-glow transition-all">Semua (42+)</button>
+                    <button onclick="filterToolsByCategory('video')" class="cat-pill px-5 py-2.5 rounded-xl bg-dark-900 border border-purple-900/30 text-gray-300 hover:border-purple-500/50 font-medium text-xs sm:text-sm transition-all">Video Tools</button>
+                    <button onclick="filterToolsByCategory('image')" class="cat-pill px-5 py-2.5 rounded-xl bg-dark-900 border border-purple-900/30 text-gray-300 hover:border-purple-500/50 font-medium text-xs sm:text-sm transition-all">Image Tools</button>
+                    <button onclick="filterToolsByCategory('audio')" class="cat-pill px-5 py-2.5 rounded-xl bg-dark-900 border border-purple-900/30 text-gray-300 hover:border-purple-500/50 font-medium text-xs sm:text-sm transition-all">Audio Tools</button>
+                    <button onclick="filterToolsByCategory('ai')" class="cat-pill px-5 py-2.5 rounded-xl bg-dark-900 border border-purple-900/30 text-gray-300 hover:border-purple-500/50 font-medium text-xs sm:text-sm transition-all">AI Suite</button>
+                    <button onclick="filterToolsByCategory('utility')" class="cat-pill px-5 py-2.5 rounded-xl bg-dark-900 border border-purple-900/30 text-gray-300 hover:border-purple-500/50 font-medium text-xs sm:text-sm transition-all">Utilities</button>
+                </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="border-y border-purple-900/30 bg-dark-900/40 py-12 mb-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div>
+                        <div class="text-3xl sm:text-4xl font-extrabold text-cyan-400 mb-1">42+</div>
+                        <div class="text-xs sm:text-sm text-gray-400">Tools Profesional</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl sm:text-4xl font-extrabold text-purple-400 mb-1">2.5 Juta+</div>
+                        <div class="text-xs sm:text-sm text-gray-400">File Diproses</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl sm:text-4xl font-extrabold text-pink-400 mb-1">99.9%</div>
+                        <div class="text-xs sm:text-sm text-gray-400">Akurasi Server</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl sm:text-4xl font-extrabold text-blue-400 mb-1">250rb+</div>
+                        <div class="text-xs sm:text-sm text-gray-400">Pengguna Aktif</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Tools Grid -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Tools Unggulan WAGURI</h2>
+                        <p class="text-sm text-gray-400 mt-1">Pilih tool favorit Anda dan nikmati pemrosesan kilat.</p>
+                    </div>
+                    <button onclick="switchView('dashboard')" class="text-sm font-semibold text-purple-400 hover:text-purple-300 flex items-center gap-2">
+                        <span>Lihat Semua</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div id="featured-tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Dynamic -->
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= 2. DASHBOARD TOOLS VIEW ================= -->
+        <div id="view-dashboard" class="view-section hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+                    <div>
+                        <h1 class="text-3xl font-extrabold tracking-tight">Dashboard & Semua Tools</h1>
+                        <p class="text-sm text-gray-400 mt-1">Eksplorasi koleksi lengkap Video, Image, Audio, AI, dan Utility tools.</p>
+                    </div>
+                    <div class="relative">
+                        <input type="text" id="dashboard-search" oninput="filterToolsBySearch(this.value)" placeholder="Cari tool..." class="w-full sm:w-72 pl-10 pr-4 py-2.5 bg-dark-900 border border-purple-900/40 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-gray-400 text-xs"></i>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="flex flex-wrap gap-2 mb-8 border-b border-purple-900/30 pb-4">
+                    <button onclick="filterDashboardTab('all')" class="dash-tab active px-4 py-2 rounded-xl bg-purple-600 text-white font-medium text-xs sm:text-sm">Semua</button>
+                    <button onclick="filterDashboardTab('video')" class="dash-tab px-4 py-2 rounded-xl bg-dark-900 border border-purple-900/30 text-gray-300 hover:bg-white/5 font-medium text-xs sm:text-sm">Video</button>
+                    <button onclick="filterDashboardTab('image')" class="dash-tab px-4 py-2 rounded-xl bg-dark-900 border border-purple-900/30 text-gray-300 hover:bg-white/5 font-medium text-xs sm:text-sm">Image</button>
+                    <button onclick="filterDashboardTab('audio')" class="dash-tab px-4 py-2 rounded-xl bg-dark-900 border border-purple-900/30 text-gray-300 hover:bg-white/5 font-medium text-xs sm:text-sm">Audio</button>
+                    <button onclick="filterDashboardTab('ai')" class="dash-tab px-4 py-2 rounded-xl bg-dark-900 border border-purple-900/30 text-gray-300 hover:bg-white/5 font-medium text-xs sm:text-sm">AI Suite</button>
+                    <button onclick="filterDashboardTab('utility')" class="dash-tab px-4 py-2 rounded-xl bg-dark-900 border border-purple-900/30 text-gray-300 hover:bg-white/5 font-medium text-xs sm:text-sm">Utilities</button>
+                    <button onclick="filterDashboardTab('favorites')" class="dash-tab px-4 py-2 rounded-xl bg-dark-900 border border-purple-900/30 text-gray-300 hover:bg-white/5 font-medium text-xs sm:text-sm flex items-center gap-1.5"><i class="fa-solid fa-heart text-pink-500"></i> Favorit</button>
+                    <button onclick="filterDashboardTab('history')" class="dash-tab px-4 py-2 rounded-xl bg-dark-900 border border-purple-900/30 text-gray-300 hover:bg-white/5 font-medium text-xs sm:text-sm flex items-center gap-1.5"><i class="fa-solid fa-clock-rotate-left text-cyan-400"></i> Riwayat</button>
+                </div>
+
+                <div id="all-tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Dynamic -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= 3. SPECIALIZED CATEGORY VIEWS (Video, Image, Audio, AI) ================= -->
+        <div id="view-video" class="view-section hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <h1 class="text-3xl font-extrabold mb-2">Video Tools</h1>
+                <p class="text-sm text-gray-400 mb-8">Unduh TikTok tanpa watermark, kompres, konversi, potong, dan gabungkan video.</p>
+                <div id="video-tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+        </div>
+
+        <div id="view-image" class="view-section hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <h1 class="text-3xl font-extrabold mb-2">Image Tools & AI Upscaler</h1>
+                <p class="text-sm text-gray-400 mb-8">Tingkatkan resolusi foto HD/4K, hapus latar belakang, dan konversi gambar.</p>
+                <div id="image-tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+        </div>
+
+        <div id="view-audio" class="view-section hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <h1 class="text-3xl font-extrabold mb-2">Audio Tools</h1>
+                <p class="text-sm text-gray-400 mb-8">Ekstrak audio, bersihkan noise suara, potong MP3, dan konversi format.</p>
+                <div id="audio-tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+        </div>
+
+        <div id="view-ai" class="view-section hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <h1 class="text-3xl font-extrabold mb-2">AI Suite & Generation</h1>
+                <p class="text-sm text-gray-400 mb-8">Hasilkan teks, gambar, ringkasan, caption, dan terjemahan otomatis dengan AI.</p>
+                <div id="ai-tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+        </div>
+
+        <!-- ================= 4. WORKSPACE VIEW ================= -->
+        <div id="view-workspace" class="view-section hidden">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <button onclick="switchView('dashboard')" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-dark-900 border border-purple-900/30 text-sm text-gray-300 hover:text-white mb-8 transition-all">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Kembali ke Dashboard</span>
+                </button>
+
+                <div class="bg-dark-900/90 border border-purple-900/40 rounded-3xl p-6 sm:p-10 shadow-card-glow backdrop-blur-xl relative overflow-hidden">
+                    <div class="absolute -top-24 -right-24 w-64 h-64 bg-purple-600/10 rounded-full glow-orb"></div>
+                    
+                    <div class="flex items-start justify-between gap-4 mb-8">
+                        <div class="flex items-center gap-4">
+                            <div id="workspace-icon" class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-600 to-cyan-400 flex items-center justify-center text-white text-2xl shadow-neon-glow">
+                                <i class="fa-solid fa-bolt"></i>
+                            </div>
+                            <div>
+                                <h1 id="workspace-title" class="text-2xl sm:text-3xl font-extrabold">Nama Tool</h1>
+                                <p id="workspace-desc" class="text-sm text-gray-400 mt-1">Deskripsi singkat.</p>
+                            </div>
+                        </div>
+                        <button id="workspace-fav-btn" onclick="toggleCurrentFavorite()" class="p-3 rounded-xl bg-dark-800 border border-purple-900/30 text-gray-400 hover:text-pink-500 transition-all">
+                            <i class="fa-solid fa-heart text-lg"></i>
+                        </button>
+                    </div>
+
+                    <div id="workspace-content" class="space-y-6">
+                        <!-- Dynamic Workspace -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= 5. STATIC PAGES ================= -->
+        <div id="view-about" class="view-section hidden">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <h1 class="text-4xl font-extrabold mb-6">Tentang WAGURI AI</h1>
+                <div class="space-y-6 text-gray-300 leading-relaxed">
+                    <p>WAGURI AI adalah platform web All-in-One canggih yang dikembangkan oleh <strong class="text-purple-400">VINZA</strong>. Kami menghadirkan solusi pemrosesan file media (Video, Image, Audio) serta rangkaian AI Tools berkecepatan tinggi.</p>
+                    <h3 class="text-xl font-bold text-white pt-4">Komitmen Kami</h3>
+                    <p>Memberikan kemudahan bagi kreator dan profesional di Indonesia dengan antarmuka modern, aman, dan tanpa hambatan teknis.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-contact" class="view-section hidden">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <h1 class="text-4xl font-extrabold mb-6">Hubungi Admin WAGURI</h1>
+                <p class="text-gray-400 mb-8">Punya pertanyaan, kendala, atau butuh bantuan khusus? Hubungi admin resmi kami.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-dark-900 border border-purple-900/40 p-8 rounded-3xl space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-950 flex items-center justify-center text-emerald-400 text-xl"><i class="fa-brands fa-whatsapp"></i></div>
+                            <div>
+                                <div class="text-xs text-gray-400">WhatsApp Admin Official</div>
+                                <div class="font-bold text-lg text-emerald-400">085647377218</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-purple-950 flex items-center justify-center text-purple-400 text-xl"><i class="fa-solid fa-code"></i></div>
+                            <div>
+                                <div class="text-xs text-gray-400">Lead Developer</div>
+                                <div class="font-bold">VINZA</div>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/6285647377218" target="_blank" class="block w-full py-3.5 bg-emerald-600 rounded-xl font-bold text-center text-white shadow-lg hover:bg-emerald-500">
+                            <i class="fa-brands fa-whatsapp mr-2"></i> Chat WhatsApp Admin
+                        </a>
+                    </div>
+                    <div class="bg-dark-900 border border-purple-900/40 p-8 rounded-3xl space-y-4">
+                        <h3 class="text-xl font-bold mb-4">Kirim Pesan Bantuan</h3>
+                        <input type="text" placeholder="Nama Lengkap" class="w-full px-4 py-3 bg-dark-800 border border-purple-900/30 rounded-xl text-sm focus:outline-none focus:border-cyan-400">
+                        <input type="text" placeholder="Nomor WhatsApp" class="w-full px-4 py-3 bg-dark-800 border border-purple-900/30 rounded-xl text-sm focus:outline-none focus:border-cyan-400">
+                        <textarea rows="4" placeholder="Tulis kendala Anda..." class="w-full px-4 py-3 bg-dark-800 border border-purple-900/30 rounded-xl text-sm focus:outline-none focus:border-cyan-400"></textarea>
+                        <button onclick="showToast('Pesan terkirim ke Admin 085647377218!')" class="w-full py-3.5 bg-gradient-to-r from-purple-600 to-cyan-500 rounded-xl font-bold shadow-neon-glow hover:opacity-90">Kirim ke Admin</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-privacy" class="view-section hidden">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <h1 class="text-4xl font-extrabold mb-6">Kebijakan Privasi</h1>
+                <div class="space-y-6 text-gray-300 leading-relaxed text-sm sm:text-base">
+                    <p>WAGURI AI menghargai privasi Anda. Semua file yang diunggah akan dihapus secara otomatis dalam waktu 2 jam dari server kami.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-terms" class="view-section hidden">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <h1 class="text-4xl font-extrabold mb-6">Ketentuan Layanan</h1>
+                <div class="space-y-6 text-gray-300 leading-relaxed text-sm sm:text-base">
+                    <p>Dengan menggunakan platform WAGURI AI buatan VINZA, Anda setuju untuk menggunakan tools secara bijak dan mematuhi hukum hak cipta yang berlaku.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= 6. ADMIN PANEL VIEW ================= -->
+        <div id="view-admin" class="view-section hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h1 class="text-3xl font-extrabold tracking-tight flex items-center gap-3">
+                            <i class="fa-solid fa-shield-halved text-amber-500"></i>
+                            <span>Admin Control Center (VINZA)</span>
+                        </h1>
+                        <p class="text-sm text-gray-400 mt-1">Admin WhatsApp: 085647377218 &bull; Kelola sistem & statistik.</p>
+                    </div>
+                    <div class="px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold">
+                        Super Admin: VINZA
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                    <div class="bg-dark-900 border border-purple-900/40 p-6 rounded-3xl">
+                        <div class="text-xs text-gray-400 mb-1">Total Pengguna</div>
+                        <div class="text-3xl font-extrabold text-white">254,800</div>
+                        <div class="text-xs text-emerald-400 mt-2"><i class="fa-solid fa-arrow-trend-up"></i> +15% bulan ini</div>
+                    </div>
+                    <div class="bg-dark-900 border border-purple-900/40 p-6 rounded-3xl">
+                        <div class="text-xs text-gray-400 mb-1">File Diproses Hari Ini</div>
+                        <div class="text-3xl font-extrabold text-cyan-400">82,140</div>
+                        <div class="text-xs text-emerald-400 mt-2"><i class="fa-solid fa-arrow-trend-up"></i> +9.2% dari kemarin</div>
+                    </div>
+                    <div class="bg-dark-900 border border-purple-900/40 p-6 rounded-3xl">
+                        <div class="text-xs text-gray-400 mb-1">Status Server</div>
+                        <div class="text-3xl font-extrabold text-emerald-400">99.99%</div>
+                        <div class="text-xs text-gray-400 mt-2">Optimal (0.02ms latency)</div>
+                    </div>
+                    <div class="bg-dark-900 border border-purple-900/40 p-6 rounded-3xl">
+                        <div class="text-xs text-gray-400 mb-1">Kapasitas API AI</div>
+                        <div class="text-3xl font-extrabold text-pink-400">68.4%</div>
+                        <div class="text-xs text-amber-400 mt-2">Stabil</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-dark-900 border border-purple-900/40 p-8 rounded-3xl">
+                        <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                            <i class="fa-solid fa-sliders text-purple-400"></i>
+                            <span>Manajemen Status Tools</span>
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-4 bg-dark-800 rounded-2xl">
+                                <div>
+                                    <div class="font-bold text-sm">TikTok Downloader</div>
+                                    <div class="text-xs text-gray-400">Status: Aktif</div>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" checked class="sr-only peer">
+                                    <div class="w-11 h-6 bg-dark-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-dark-800 rounded-2xl">
+                                <div>
+                                    <div class="font-bold text-sm">AI Image Upscaler HD/4K</div>
+                                    <div class="text-xs text-gray-400">Status: Aktif</div>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" checked class="sr-only peer">
+                                    <div class="w-11 h-6 bg-dark-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-dark-900 border border-purple-900/40 p-8 rounded-3xl flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                                <i class="fa-solid fa-server text-cyan-400"></i>
+                               <span>Kontak & Cache Server</span>
+                            </h3>
+                            <div class="space-y-3 text-sm">
+                                <div class="p-4 bg-dark-800 rounded-2xl flex items-center justify-between">
+                                    <span>Kontak Admin WhatsApp</span>
+                                    <span class="text-emerald-400 font-bold">085647377218</span>
+                                </div>
+                                <div class="p-4 bg-dark-800 rounded-2xl flex items-center justify-between">
+                                    <span>Versi Sistem</span>
+                                    <span class="text-cyan-400 font-bold">WAGURI v4.2-VINZA</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <button onclick="showToast('Cache server dibersihkan oleh VINZA!')" class="w-full py-3.5 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl font-bold shadow-neon-blue hover:opacity-90">
+                                <i class="fa-solid fa-broom mr-2"></i> Bersihkan Cache Server
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-purple-900/30 bg-dark-900/60 pt-16 pb-24 md:pb-16 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-600 to-cyan-400 flex items-center justify-center text-white">
+                        <i class="fa-solid fa-cube"></i>
+                    </div>
+                    <span class="text-lg font-extrabold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">WAGURI AI</span>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                    Platform AI & Media Tools All-in-One. Dikembangkan oleh <strong class="text-purple-300">VINZA</strong>. Admin: 085647377218.
+                </p>
+            </div>
+            <div>
+                <h4 class="font-bold text-sm mb-4 text-white">Kategori Tools</h4>
+                <ul class="space-y-2 text-xs text-gray-400">
+                    <li><button onclick="switchView('video')" class="hover:text-cyan-400 transition-colors">Video Tools & TikTok Downloader</button></li>
+                    <li><button onclick="switchView('image')" class="hover:text-cyan-400 transition-colors">AI Image Upscaler & Background</button></li>
+                    <li><button onclick="switchView('audio')" class="hover:text-cyan-400 transition-colors">Audio Extractor & Cleaner</button></li>
+                    <li><button onclick="switchView('ai')" class="hover:text-cyan-400 transition-colors">AI Text & Content Generator</button></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-sm mb-4 text-white">Navigasi</h4>
+                <ul class="space-y-2 text-xs text-gray-400">
+                    <li><button onclick="switchView('about')" class="hover:text-cyan-400 transition-colors">Tentang Kami</button></li>
+                    <li><button onclick="switchView('contact')" class="hover:text-cyan-400 transition-colors">Hubungi Admin</button></li>
+                    <li><button onclick="switchView('privacy')" class="hover:text-cyan-400 transition-colors">Kebijakan Privasi</button></li>
+                    <li><button onclick="switchView('terms')" class="hover:text-cyan-400 transition-colors">Ketentuan Layanan</button></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-sm mb-4 text-white">Dukungan Cepat</h4>
+                <p class="text-xs text-gray-400 mb-2">Butuh bantuan cepat via WhatsApp?</p>
+                <a href="https://wa.me/6285647377218" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-lg hover:bg-emerald-500">
+                    <i class="fa-brands fa-whatsapp"></i> 085647377218
+                </a>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-purple-900/20 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500">
+            <div>&copy; 2026 WAGURI AI &bull; Developer: VINZA. Hak Cipta Dilindungi.</div>
+            <div class="mt-2 sm:mt-0">Admin: 085647377218</div>
+        </div>
+    </footer>
+
+    <!-- MOBILE BOTTOM NAVIGATION -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-dark-950/95 border-t border-purple-900/40 backdrop-blur-xl px-4 py-2 flex items-center justify-around">
+        <button onclick="switchView('home')" class="flex flex-col items-center gap-1 text-purple-400 text-xs">
+            <i class="fa-solid fa-house text-base"></i>
+            <span>Beranda</span>
+        </button>
+        <button onclick="switchView('dashboard')" class="flex flex-col items-center gap-1 text-gray-400 hover:text-white text-xs">
+            <i class="fa-solid fa-layer-group text-base"></i>
+            <span>Dashboard</span>
+        </button>
+        <button onclick="switchView('video')" class="flex flex-col items-center gap-1 text-gray-400 hover:text-white text-xs">
+            <i class="fa-solid fa-video text-base"></i>
+            <span>Video</span>
+        </button>
+        <button onclick="switchView('image')" class="flex flex-col items-center gap-1 text-gray-400 hover:text-white text-xs">
+            <i class="fa-solid fa-image text-base"></i>
+            <span>Image</span>
+        </button>
+        <button onclick="openAuthModal()" class="flex flex-col items-center gap-1 text-gray-400 hover:text-white text-xs">
+            <i class="fa-solid fa-user text-base"></i>
+            <span>Akun</span>
+        </button>
+    </div>
+
+    <!-- AUTHENTICATION / PROFILE MODAL -->
+    <div id="auth-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-dark-900 border border-purple-900/50 w-full max-w-md rounded-3xl p-6 sm:p-8 shadow-card-glow relative">
+            <button onclick="closeAuthModal()" class="absolute top-6 right-6 text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="auth-modal-content">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT ENGINE -->
+    <script>
+        const toolsData = [
+            // Video Tools
+            { id: 'tiktok-downloader', name: 'TikTok Downloader', category: 'video', icon: 'fa-brands fa-tiktok', desc: 'Unduh video TikTok tanpa watermark secara instan.', popular: true },
+            { id: 'video-downloader', name: 'Video Downloader Universal', category: 'video', icon: 'fa-solid fa-download', desc: 'Unduh video dari platform yang diizinkan.', popular: false },
+            { id: 'extract-audio', name: 'Extract Audio', category: 'video', icon: 'fa-solid fa-music', desc: 'Ambil trek audio dari file video menjadi MP3.', popular: true },
+            { id: 'video-to-mp3', name: 'Video to MP3 Converter', category: 'video', icon: 'fa-solid fa-file-audio', desc: 'Konversi video ke audio berkualitas tinggi.', popular: false },
+            { id: 'video-compressor', name: 'Video Compressor', category: 'video', icon: 'fa-solid fa-compress', desc: 'Kecilkan ukuran file video tanpa mengurangi kualitas.', popular: true },
+            { id: 'video-converter', name: 'Video Format Converter', category: 'video', icon: 'fa-solid fa-arrows-rotate', desc: 'Ubah format MP4, MOV, WEBM dengan cepat.', popular: false },
+            { id: 'video-trimmer', name: 'Video Trimmer', category: 'video', icon: 'fa-solid fa-scissors', desc: 'Potong durasi video dengan presisi.', popular: false },
+            { id: 'video-merger', name: 'Video Merger', category: 'video', icon: 'fa-solid fa-object-ungroup', desc: 'Gabungkan beberapa klip video.', popular: false },
+            { id: 'video-thumbnail', name: 'Video Thumbnail Extractor', category: 'video', icon: 'fa-solid fa-image', desc: 'Ambil gambar thumbnail resolusi penuh dari video.', popular: false },
+
+            // Image Tools
+            { id: 'ai-image-upscaler', name: 'AI Image Upscaler HD/4K', category: 'image', icon: 'fa-solid fa-wand-magic-sparkles', desc: 'Tingkatkan resolusi foto buram menjadi HD & 4K dengan AI.', popular: true },
+            { id: 'remove-bg', name: 'Remove Background', category: 'image', icon: 'fa-solid fa-user-slash', desc: 'Hapus latar belakang foto otomatis dalam hitungan detik.', popular: true },
+            { id: 'bg-changer', name: 'Background Changer', category: 'image', icon: 'fa-solid fa-palette', desc: 'Ganti latar belakang foto dengan warna atau pemandangan.', popular: false },
+            { id: 'image-enhancer', name: 'Image Enhancer', category: 'image', icon: 'fa-solid fa-wand-magic', desc: 'Pertajam detail dan warna foto secara otomatis.', popular: false },
+            { id: 'image-compressor', name: 'Image Compressor', category: 'image', icon: 'fa-solid fa-file-image', desc: 'Kecilkan ukuran file PNG, JPG, WEBM.', popular: true },
+            { id: 'image-converter', name: 'Image Converter', category: 'image', icon: 'fa-solid fa-file-arrow-down', desc: 'Konversi format gambar PNG, JPG, WEBM.', popular: false },
+            { id: 'image-cropper', name: 'Image Cropper', category: 'image', icon: 'fa-solid fa-crop', desc: 'Potong gambar sesuai rasio aspek.', popular: false },
+            { id: 'image-resizer', name: 'Image Resizer', category: 'image', icon: 'fa-solid fa-expand', desc: 'Ubah ukuran piksel foto.', popular: false },
+            { id: 'ai-photo-restoration', name: 'AI Photo Restoration', category: 'image', icon: 'fa-solid fa-clock-rotate-left', desc: 'Pulihkan foto lama yang rusak.', popular: true },
+
+            // Audio Tools
+            { id: 'audio-extractor', name: 'Audio Extractor', category: 'audio', icon: 'fa-solid fa-headphones', desc: 'Ekstrak dan pisahkan trek audio profesional.', popular: false },
+            { id: 'mp3-converter', name: 'MP3 Converter', category: 'audio', icon: 'fa-solid fa-compact-disc', desc: 'Konversi file suara ke standar MP3.', popular: false },
+            { id: 'audio-cutter', name: 'Audio Cutter', category: 'audio', icon: 'fa-solid fa-scissors', desc: 'Potong musik atau rekaman suara.', popular: false },
+            { id: 'audio-merger', name: 'Audio Merger', category: 'audio', icon: 'fa-solid fa-layer-group', desc: 'Gabungkan beberapa file audio.', popular: false },
+            { id: 'voice-recorder', name: 'Voice Recorder', category: 'audio', icon: 'fa-solid fa-microphone', desc: 'Rekam suara langsung dari browser.', popular: false },
+            { id: 'voice-cleaner', name: 'Voice Cleaner AI', category: 'audio', icon: 'fa-solid fa-volume-high', desc: 'Kurangi noise dan desisan latar suara.', popular: true },
+            { id: 'audio-compressor', name: 'Audio Compressor', category: 'audio', icon: 'fa-solid fa-volume-low', desc: 'Perkecil ukuran file audio.', popular: false },
+            { id: 'audio-format-converter', name: 'Audio Format Converter', category: 'audio', icon: 'fa-solid fa-file-audio', desc: 'Konversi format audio WAV, AAC, MP3.', popular: false },
+
+            // AI Tools Suite
+            { id: 'ai-image-generator', name: 'AI Image Generator', category: 'ai', icon: 'fa-solid fa-paintbrush', desc: 'Buat gambar dari deskripsi teks dengan AI.', popular: true },
+            { id: 'ai-text-generator', name: 'AI Text Generator', category: 'ai', icon: 'fa-solid fa-pen-nib', desc: 'Buat artikel dan copywriting dengan AI.', popular: true },
+            { id: 'ai-translator', name: 'AI Translator', category: 'ai', icon: 'fa-solid fa-language', desc: 'Terjemahan bahasa alami yang akurat.', popular: false },
+            { id: 'ai-summarizer', name: 'AI Text Summarizer', category: 'ai', icon: 'fa-solid fa-file-lines', desc: 'Ringkas teks atau artikel panjang otomatis.', popular: true },
+            { id: 'ai-caption-generator', name: 'AI Caption Generator', category: 'ai', icon: 'fa-solid fa-quote-left', desc: 'Hasilkan caption media sosial menarik.', popular: false },
+            { id: 'ai-hashtag-generator', name: 'AI Hashtag Generator', category: 'ai', icon: 'fa-solid fa-hashtag', desc: 'Buat hashtag viral untuk IG & TikTok.', popular: false },
+            { id: 'ai-tts', name: 'AI Text to Speech', category: 'ai', icon: 'fa-solid fa-volume-xmark', desc: 'Ubah teks menjadi suara natural.', popular: false },
+            { id: 'ai-stt', name: 'AI Speech to Text', category: 'ai', icon: 'fa-solid fa-microphone-lines', desc: 'Transkrip suara menjadi teks.', popular: false },
+
+            // Utilities
+            { id: 'qr-generator', name: 'QR Code Generator', category: 'utility', icon: 'fa-solid fa-qrcode', desc: 'Buat QR Code instan untuk URL atau teks.', popular: true },
+            { id: 'password-generator', name: 'Password Generator', category: 'utility', icon: 'fa-solid fa-key', desc: 'Buat kata sandi acak super aman.', popular: false },
+            { id: 'text-to-pdf', name: 'Text to PDF', category: 'utility', icon: 'fa-solid fa-file-pdf', desc: 'Ubah teks menjadi dokumen PDF.', popular: false },
+            { id: 'pdf-to-image', name: 'PDF to Image', category: 'utility', icon: 'fa-solid fa-file-image', desc: 'Konversi halaman PDF ke gambar.', popular: false },
+            { id: 'image-to-pdf', name: 'Image to PDF', category: 'utility', icon: 'fa-solid fa-file-pdf', desc: 'Gabungkan beberapa foto menjadi PDF.', popular: false },
+            { id: 'pdf-merger', name: 'PDF Merger', category: 'utility', icon: 'fa-solid fa-file-shield', desc: 'Gabungkan file PDF.', popular: false },
+            { id: 'pdf-compressor', name: 'PDF Compressor', category: 'utility', icon: 'fa-solid fa-file-arrow-down', desc: 'Kecilkan ukuran file PDF.', popular: false },
+            { id: 'file-converter', name: 'File Converter', category: 'utility', icon: 'fa-solid fa-box-archive', desc: 'Konversi dokumen umum.', popular: false },
+            { id: 'color-picker', name: 'Color Picker', category: 'utility', icon: 'fa-solid fa-droplet', desc: 'Ambil kode warna HEX dan RGB.', popular: false },
+            { id: 'speed-test', name: 'Internet Speed Test', category: 'utility', icon: 'fa-solid fa-gauge-high', desc: 'Uji kecepatan internet Anda.', popular: true }
+        ];
+
+        let currentLang = 'ID';
+        let currentUser = null;
+        let userFavorites = JSON.parse(localStorage.getItem('waguri_favs') || '[]');
+        let userHistory = JSON.parse(localStorage.getItem('waguri_hist') || '[]');
+        let activeToolId = null;
+
+        window.onload = function() {
+            renderFeaturedTools();
+            renderDashboardTools(toolsData);
+            renderCategoryGrids();
+        };
+
+        function switchView(viewName) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+            const target = document.getElementById('view-' + viewName);
+            if (target) {
+                target.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            document.querySelectorAll('.nav-link').forEach(btn => {
+                btn.classList.remove('text-purple-400', 'bg-purple-950/50');
+                btn.classList.add('text-gray-300');
+                if(btn.getAttribute('data-nav') === viewName) {
+                    btn.classList.add('text-purple-400', 'bg-purple-950/50');
+                    btn.classList.remove('text-gray-300');
+                }
+            });
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `px-5 py-3.5 rounded-2xl bg-dark-900 border ${type === 'success' ? 'border-purple-500/50 text-purple-200' : 'border-red-500/50 text-red-200'} shadow-neon-glow flex items-center gap-3 text-sm font-medium transition-all transform translate-y-2 opacity-0`;
+            toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check text-cyan-400' : 'fa-circle-exclamation text-red-400'}"></i><span>${message}</span>`;
+            container.appendChild(toast);
+            
+            setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 10);
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function renderFeaturedTools() {
+            const grid = document.getElementById('featured-tools-grid');
+            const featured = toolsData.filter(t => t.popular).slice(0, 6);
+            grid.innerHTML = featured.map(t => createToolCardHTML(t)).join('');
+        }
+
+        function renderDashboardTools(list) {
+            const grid = document.getElementById('all-tools-grid');
+            if (list.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-16 text-center text-gray-500">Tool tidak ditemukan.</div>`;
+                return;
+            }
+            grid.innerHTML = list.map(t => createToolCardHTML(t)).join('');
+        }
+
+        function renderCategoryGrids() {
+            document.getElementById('video-tools-grid').innerHTML = toolsData.filter(t => t.category === 'video').map(t => createToolCardHTML(t)).join('');
+            document.getElementById('image-tools-grid').innerHTML = toolsData.filter(t => t.category === 'image').map(t => createToolCardHTML(t)).join('');
+            document.getElementById('audio-tools-grid').innerHTML = toolsData.filter(t => t.category === 'audio').map(t => createToolCardHTML(t)).join('');
+            document.getElementById('ai-tools-grid').innerHTML = toolsData.filter(t => t.category === 'ai').map(t => createToolCardHTML(t)).join('');
+        }
+
+        function createToolCardHTML(t) {
+            const isFav = userFavorites.includes(t.id);
+            return `
+                <div class="bg-dark-900/80 border border-purple-900/30 hover:border-purple-500/60 p-6 rounded-3xl transition-all hover:shadow-neon-glow flex flex-col justify-between group relative">
+                    <button onclick="toggleFavorite('${t.id}', event)" class="absolute top-6 right-6 text-gray-500 hover:text-pink-500 transition-all">
+                        <i class="fa-solid fa-heart ${isFav ? 'text-pink-500' : ''}"></i>
+                    </button>
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-purple-950/80 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="${t.icon}"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-white mb-2">${t.name}</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-6">${t.desc}</p>
+                    </div>
+                    <button onclick="openToolWorkspace('${t.id}')" class="w-full py-3 bg-dark-800 border border-purple-900/40 rounded-xl font-semibold text-xs text-purple-300 hover:bg-gradient-to-r hover:from-purple-600 hover:to-cyan-500 hover:text-white transition-all">
+                        Gunakan Tool
+                    </button>
+                </div>
+            `;
+        }
+
+        function filterToolsByCategory(cat) {
+            if (cat === 'video' || cat === 'image' || cat === 'audio' || cat === 'ai') {
+                switchView(cat);
+                return;
+            }
+            switchView('dashboard');
+            filterDashboardTab(cat);
+        }
+
+        function filterDashboardTab(tab) {
+            document.querySelectorAll('.dash-tab').forEach(btn => {
+                btn.classList.remove('bg-purple-600', 'text-white');
+                btn.classList.add('bg-dark-900', 'border', 'border-purple-900/30', 'text-gray-300');
+            });
+            event.target.classList.add('bg-purple-600', 'text-white');
+            event.target.classList.remove('bg-dark-900', 'border', 'border-purple-900/30', 'text-gray-300');
+
+            if (tab === 'all') {
+                renderDashboardTools(toolsData);
+            } else if (tab === 'favorites') {
+                renderDashboardTools(toolsData.filter(t => userFavorites.includes(t.id)));
+            } else if (tab === 'history') {
+                renderDashboardTools(toolsData.filter(t => userHistory.includes(t.id)));
+            } else {
+                renderDashboardTools(toolsData.filter(t => t.category === tab));
+            }
+        }
+
+        function filterToolsBySearch(query) {
+            const q = query.toLowerCase();
+            renderDashboardTools(toolsData.filter(t => t.name.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q)));
+        }
+
+        function handleGlobalSearch(query) {
+            if (query.length > 1) {
+                renderDashboardTools(toolsData.filter(t => t.name.toLowerCase().includes(query.toLowerCase())));
+                switchView('dashboard');
+            }
+        }
+
+        function toggleFavorite(id, e) {
+            e.stopPropagation();
+            const idx = userFavorites.indexOf(id);
+            if (idx > -1) {
+                userFavorites.splice(idx, 1);
+                showToast('Dihapus dari favorit');
+            } else {
+                userFavorites.push(id);
+                showToast('Ditambahkan ke favorit!');
+            }
+            localStorage.setItem('waguri_favs', JSON.stringify(userFavorites));
+            renderFeaturedTools();
+            renderDashboardTools(toolsData);
+            renderCategoryGrids();
+        }
+
+        function toggleCurrentFavorite() {
+            if (!activeToolId) return;
+            const idx = userFavorites.indexOf(activeToolId);
+            const btn = document.getElementById('workspace-fav-btn');
+            if (idx > -1) {
+                userFavorites.splice(idx, 1);
+                btn.innerHTML = `<i class="fa-solid fa-heart text-lg"></i>`;
+                showToast('Dihapus dari favorit');
+            } else {
+                userFavorites.push(activeToolId);
+                btn.innerHTML = `<i class="fa-solid fa-heart text-pink-500 text-lg"></i>`;
+                showToast('Ditambahkan ke favorit!');
+            }
+            localStorage.setItem('waguri_favs', JSON.stringify(userFavorites));
+        }
+
+        function addHistory(id) {
+            if (!userHistory.includes(id)) {
+                userHistory.unshift(id);
+                if (userHistory.length > 20) userHistory.pop();
+                localStorage.setItem('waguri_hist', JSON.stringify(userHistory));
+            }
+        }
+
+        function openToolWorkspace(id) {
+            const tool = toolsData.find(t => t.id === id);
+            if (!tool) return;
+            activeToolId = id;
+            addHistory(id);
+
+            document.getElementById('workspace-icon').innerHTML = `<i class="${tool.icon}"></i>`;
+            document.getElementById('workspace-title').innerText = tool.name;
+            document.getElementById('workspace-desc').innerText = tool.desc;
+
+            const isFav = userFavorites.includes(id);
+            document.getElementById('workspace-fav-btn').innerHTML = `<i class="fa-solid fa-heart ${isFav ? 'text-pink-500' : ''} text-lg"></i>`;
+
+            const content = document.getElementById('workspace-content');
+            
+            if (id === 'qr-generator') {
+                content.innerHTML = `
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 mb-2">Teks atau URL QR Code:</label>
+                            <input type="text" id="qr-input" value="https://waguri.ai" class="w-full px-4 py-3 bg-dark-800 border border-purple-900/40 rounded-xl text-sm text-white focus:outline-none focus:border-cyan-400">
+                        </div>
+                        <button onclick="generateQRCodeLive()" class="px-6 py-3 bg-gradient-to-r from-purple-600 to-cyan-500 rounded-xl font-bold text-sm shadow-neon-glow text-white">Buat QR Code</button>
+                        <div id="qr-preview" class="p-6 bg-dark-800 border border-purple-900/30 rounded-2xl flex flex-col items-center justify-center">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://waguri.ai" alt="QR" class="rounded-xl shadow-lg mb-4">
+                            <button onclick="showToast('QR Code berhasil diunduh!')" class="px-4 py-2 bg-purple-600 rounded-xl text-xs font-bold text-white"><i class="fa-solid fa-download mr-1"></i> Download PNG</button>
+                        </div>
+                    </div>
+                `;
+            } else if (id === 'password-generator') {
+                content.innerHTML = `
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 mb-2">Password Aman:</label>
+                            <div class="flex items-center gap-2">
+                                <input type="text" id="pass-output" readonly value="Wg9#kL8$mP2@vQ5*" class="w-full px-4 py-3 bg-dark-800 border border-purple-900/40 rounded-xl text-sm font-mono text-cyan-400 focus:outline-none">
+                                <button onclick="generatePasswordLive()" class="px-6 py-3 bg-purple-600 rounded-xl font-bold text-sm text-white">Acak</button>
+                            </div>
+                        </div>
+                        <button onclick="showToast('Password disalin!')" class="px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl font-bold text-sm text-white shadow-neon-blue"><i class="fa-solid fa-copy mr-2"></i> Salin Password</button>
+                    </div>
+                `;
+            } else {
+                content.innerHTML = `
+                    <div class="space-y-6">
+                        <div class="border-2 border-dashed border-purple-500/40 rounded-3xl p-8 text-center bg-dark-800/50 hover:bg-dark-800 transition-all cursor-pointer" onclick="simulateFileUpload()">
+                            <div class="w-16 h-16 rounded-2xl bg-purple-950 border border-purple-500/30 mx-auto flex items-center justify-center text-purple-400 text-2xl mb-4 shadow-neon-glow">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                            </div>
+                            <h4 class="font-bold text-white mb-1">Seret & Letakkan file di sini atau klik untuk browse</h4>
+                            <p class="text-xs text-gray-400">Mendukung file media & dokumen (Maks. 500MB)</p>
+                        </div>
+                        <div id="upload-progress-container" class="hidden space-y-2">
+                            <div class="flex justify-between text-xs text-gray-400">
+                                <span id="progress-status-text">Memproses file dengan server WAGURI...</span>
+                                <span id="progress-percent">0%</span>
+                            </div>
+                            <div class="w-full h-2 bg-dark-800 rounded-full overflow-hidden">
+                                <div id="progress-bar-fill" class="h-full bg-gradient-to-r from-purple-500 to-cyan-400 w-0 transition-all duration-300"></div>
+                            </div>
+                        </div>
+                        <div id="result-preview-box" class="hidden p-6 bg-dark-800 border border-purple-900/30 rounded-2xl space-y-4">
+                            <div class="text-xs font-bold text-emerald-400 flex items-center gap-2"><i class="fa-solid fa-circle-check"></i> Pemrosesan Selesai!</div>
+                            <div class="p-4 bg-dark-900 rounded-xl text-sm text-gray-300 flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-file-arrow-down text-purple-400 text-xl"></i>
+                                    <div>
+                                        <div class="font-bold text-white">Waguri_Output_File.dat</div>
+                                        <div class="text-xs text-gray-400">High Quality &bull; Siap Unduh</div>
+                                    </div>
+                                </div>
+                                <button onclick="showToast('File berhasil diunduh!')" class="px-5 py-2.5 bg-gradient-to-r from-purple-600 to-cyan-500 rounded-xl font-bold text-xs text-white shadow-neon-glow">Download</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            switchView('workspace');
+        }
+
+        function generateQRCodeLive() {
+            const val = document.getElementById('qr-input').value || 'https://waguri.ai';
+            document.getElementById('qr-preview').innerHTML = `
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(val)}" alt="QR" class="rounded-xl shadow-lg mb-4">
+                <button onclick="showToast('QR Code berhasil diunduh!')" class="px-4 py-2 bg-purple-600 rounded-xl text-xs font-bold text-white"><i class="fa-solid fa-download mr-1"></i> Download PNG</button>
+            `;
+            showToast('QR Code berhasil dibuat!');
+        }
+
+        function generatePasswordLive() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*!";
+            let pass = "";
+            for (let i = 0; i < 16; i++) pass += chars.charAt(Math.floor(Math.random() * chars.length));
+            document.getElementById('pass-output').value = pass;
+            showToast('Password baru dihasilkan!');
+        }
+
+        function simulateFileUpload() {
+            const progContainer = document.getElementById('upload-progress-container');
+            const barFill = document.getElementById('progress-bar-fill');
+            const percText = document.getElementById('progress-percent');
+            const statText = document.getElementById('progress-status-text');
+            const resBox = document.getElementById('result-preview-box');
+
+            progContainer.classList.remove('hidden');
+            resBox.classList.add('hidden');
+            barFill.style.width = '0%';
+            percText.innerText = '0%';
+
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 25;
+                barFill.style.width = progress + '%';
+                percText.innerText = progress + '%';
+                if (progress === 50) statText.innerText = 'VINZA AI Server sedang merender...';
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    progContainer.classList.add('hidden');
+                    resBox.classList.remove('hidden');
+                    showToast('Pemrosesan file berhasil!');
+                }
+            }, 300);
+        }
+
+        function openAuthModal() {
+            const modal = document.getElementById('auth-modal');
+            const content = document.getElementById('auth-modal-content');
+            modal.classList.remove('hidden');
+
+            if (currentUser) {
+                content.innerHTML = `
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-purple-600 to-cyan-400 mx-auto flex items-center justify-center text-white text-3xl shadow-neon-glow mb-4">
+                            <i class="fa-solid fa-user-astronaut"></i>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-white">${currentUser.name}</h3>
+                        <p class="text-xs text-gray-400">${currentUser.email}</p>
+                    </div>
+                    <div class="space-y-4 mb-6">
+                        <div class="p-4 bg-dark-800 rounded-2xl border border-purple-900/30">
+                            <div class="flex justify-between text-xs mb-2">
+                                <span class="text-gray-400">Kuota Harian</span>
+                                <span class="text-cyan-400 font-bold">15 / 20 Digunakan</span>
+                            </div>
+                            <div class="w-full h-2 bg-dark-900 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-purple-500 to-cyan-400 w-[75%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="logoutUser()" class="w-full py-3 bg-red-600/20 border border-red-500/40 text-red-400 rounded-xl font-bold text-sm hover:bg-red-600 hover:text-white transition-all">Keluar</button>
+                `;
+            } else {
+                content.innerHTML = `
+                    <h3 class="text-2xl font-extrabold text-white mb-2 text-center">Masuk ke WAGURI</h3>
+                    <p class="text-xs text-gray-400 text-center mb-6">Akses kuota tanpa batas dan simpan riwayat Anda.</p>
+                    <div class="space-y-4 mb-6">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 mb-1">Email</label>
+                            <input type="email" id="login-email" placeholder="nama@email.com" class="w-full px-4 py-3 bg-dark-800 border border-purple-900/40 rounded-xl text-sm text-white focus:outline-none focus:border-cyan-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 mb-1">Password</label>
+                            <input type="password" id="login-pass" placeholder="••••••••" class="w-full px-4 py-3 bg-dark-800 border border-purple-900/40 rounded-xl text-sm text-white focus:outline-none focus:border-cyan-400">
+                        </div>
+                    </div>
+                    <button onclick="loginUserSimulation()" class="w-full py-3.5 bg-gradient-to-r from-purple-600 to-cyan-500 rounded-xl font-bold text-sm text-white shadow-neon-glow hover:opacity-90 mb-4">Masuk / Daftar</button>
+                `;
+            }
+        }
+
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+
+        function loginUserSimulation() {
+            currentUser = { name: 'Pengguna Waguri', email: document.getElementById('login-email').value || 'user@waguri.ai' };
+            closeAuthModal();
+            showToast('Berhasil masuk akun!');
+
+            document.getElementById('auth-container').innerHTML = `
+                <button onclick="openAuthModal()" class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-purple-950 border border-purple-500/40 text-xs font-bold text-purple-300">
+                    <i class="fa-solid fa-user-astronaut text-cyan-400"></i>
+                    <span class="hidden sm:inline">Akun</span>
+                </button>
+            `;
+            document.getElementById('admin-nav-btn').classList.remove('hidden');
+            document.getElementById('admin-nav-btn').classList.add('flex');
+        }
+
+        function logoutUser() {
+            currentUser = null;
+            closeAuthModal();
+            showToast('Berhasil keluar');
+            document.getElementById('auth-container').innerHTML = `
+                <button onclick="openAuthModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs sm:text-sm font-semibold shadow-neon-glow hover:scale-105 transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-user-astronaut"></i>
+                    <span>Masuk / Daftar</span>
+                </button>
+            `;
+            document.getElementById('admin-nav-btn').classList.add('hidden');
+            document.getElementById('admin-nav-btn').classList.remove('flex');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ID' ? 'EN' : 'ID';
+            document.getElementById('lang-label').innerText = currentLang;
+            showToast(currentLang === 'ID' ? 'Bahasa Indonesia aktif' : 'English language active');
+        }
+    </script>
 </body>
 </html>
+```
