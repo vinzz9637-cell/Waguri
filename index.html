@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>???</title>
+<style>
+  html, body {
+    margin: 0; height: 100%;
+    background: #000; overflow: hidden;
+    touch-action: none;
+    -webkit-user-select: none; user-select: none;
+  }
+  .layar {
+    position: fixed; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 20px;
+    font-family: "Courier New", monospace; color: #e6e6e6;
+  }
+  #awal { background: #000; z-index: 10000; cursor: pointer; }
+  #awal p { font-size: 1.1rem; animation: kedip 1.4s infinite; }
+
+  #utama {
+    display: none; z-index: 9999;
+    background: radial-gradient(circle at center, #1a0022, #000 70%);
+    transition: opacity 1.2s ease;
+  }
+  #canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.35; display: none; }
+  #hitung { font-size: 5rem; color: #ff3b6b; text-shadow: 0 0 20px #ff3b6b; min-height: 6rem; position: relative; }
+  #nama {
+    font-size: 2.2rem; letter-spacing: 4px; color: #ff3b6b;
+    text-shadow: 0 0 12px #ff3b6b; min-height: 2.8rem; position: relative;
+  }
+  #teks { margin-top: 20px; font-size: 1.1rem; line-height: 1.6; min-height: 3rem; max-width: 90%; position: relative; }
+  #bar { position: absolute; bottom: 30px; left: 10%; width: 80%; height: 6px; background: #222; border-radius: 3px; overflow: hidden; }
+  #isi { height: 100%; width: 0%; background: #ff3b6b; transition: width .3s linear; }
+
+  /* Tema hacker */
+  body.hacker #utama { background: #000; color: #00ff66; }
+  body.hacker #hitung, body.hacker #nama { color: #00ff66; text-shadow: 0 0 12px #00ff66; }
+  body.hacker #isi { background: #00ff66; }
+  body.hacker #canvas { display: block; }
+
+  .kursor::after { content: "▌"; animation: kedip .7s infinite; }
+  @keyframes kedip { 50% { opacity: 0; } }
+  .goyang { animation: goyang .15s infinite; }
+  @keyframes goyang {
+    0% { transform: translate(2px, 1px); }
+    25% { transform: translate(-2px, -1px); }
+    50% { transform: translate(-1px, 2px); }
+    75% { transform: translate(1px, -2px); }
+    100% { transform: translate(2px, 1px); }
+  }
+  #konten { display: none; color: #fff; font-family: sans-serif; text-align: center; padding: 40px 20px; }
+</style>
+</head>
+<body>
+
+<div id="awal" class="layar"><p>Ketuk layar untuk membuka</p></div>
+
+<div id="utama" class="layar">
+  <canvas id="canvas"></canvas>
+  <div id="hitung"></div>
+  <div id="nama" class="kursor"></div>
+  <div id="teks"></div>
+  <div id="bar"><div id="isi"></div></div>
+</div>
+
+<div id="konten">
+  <h2>Cuma bercanda 😄</h2>
+  <p>Layar sudah terbuka kembali.</p>
+</div>
+
+<script>
+  // ====== UBAH DI SINI ======
+  const TEMA = "hantu";          // "hantu" atau "hacker"
+  const NAMA = "Si Pengintai";
+  const TEKS = "Aku tahu kamu sedang membuka ini... tunggu sebentar.";
+  const KECEPATAN = 90;          // ms per huruf
+  const HITUNG_MUNDUR = 3;       // 0 untuk mematikan
+  const PAKAI_SUARA = true;
+  const PAKAI_GETAR = true;
+  const PAKAI_FULLSCREEN = true;
+  const BATAS_DETIK = 30;        // pengaman maksimal
+  // ==========================
+
+  const $ = id => document.getElementById(id);
+  const awal = $("awal"), utama = $("utama"), elNama = $("nama"), elTeks = $("teks"),
+        elHitung = $("hitung"), konten = $("konten"), isi = $("isi"), canvas = $("canvas");
+
+  if (TEMA === "hacker") document.body.classList.add("hacker");
+
+  let audioCtx = null, sudahSelesai = false, matrixTimer = null;
+
+  // ---- Suara ----
+  function bip(frek = 440, durasi = 0.05, tipe = "square", vol = 0.05) {
+    if (!PAKAI_SUARA || !audioCtx) return;
+    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.type = tipe; o.frequency.value = frek; g.gain.value = vol;
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start();
+    g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + durasi);
+    o.stop(audioCtx.currentTime + durasi);
+  }
+  function dengung() {
+    if (!PAKAI_SUARA || !audioCtx) return;
+    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.type = "sawtooth"; o.frequency.value = 60; g.gain.value = 0.04;
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(); o.stop(audioCtx.currentTime + 1.5);
+  }
+
+  // ---- Getar & layar penuh ----
+  function getar(p) { if (PAKAI_GETAR && navigator.vibrate) navigator.vibrate(p); }
+  function layarPenuh() {
+    if (!PAKAI_FULLSCREEN) return;
+    const el = document.documentElement;
+    const f = el.requestFullscreen || el.webkitRequestFullscreen;
+    if (f) { try { const r = f.call(el); r && r.catch && r.catch(() => {}); } catch (e) {} }
+  }
+  function keluarLayarPenuh() {
+    if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {});
+  }
+
+  // ---- Hujan kode (tema hacker) ----
+  function mulaiMatrix() {
+    const ctx = canvas.getContext("2d");
+    canvas.width = innerWidth; canvas.height = innerHeight;
+    const ukuran = 16, kolom = Math.floor(canvas.width / ukuran);
+    const y = Array(kolom).fill(0);
+    const huruf = "01ABCDEFXYZ#$%&";
+    matrixTimer = setInterval(() => {
+      ctx.fillStyle = "rgba(0,0,0,0.08)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#00ff66";
+      ctx.font = ukuran + "px monospace";
+      y.forEach((v, i) => {
+        ctx.fillText(huruf[Math.floor(Math.random() * huruf.length)], i * ukuran, v * ukuran);
+        y[i] = (v * ukuran > canvas.height && Math.random() > 0.975) ? 0 : v + 1;
+      });
+    }, 50);
+  }
+
+  // ---- Blok sentuhan + keluar rahasia ----
+  const blok = e => e.preventDefault();
+  ["touchstart","touchmove","touchend","click","contextmenu"].forEach(ev =>
+    utama.addEventListener(ev, blok, { passive: false })
+  );
+  let ketukan = 0, waktuKetuk = 0;
+  utama.addEventListener("pointerdown", e => {
+    if (e.clientX < 90 && e.clientY < 90) {
+      const now = Date.now();
+      ketukan = (now - waktuKetuk > 4000) ? 1 : ketukan + 1;
+      waktuKetuk = now;
+      if (ketukan >= 5) selesai();
+    }
+  });
+
+  // ---- Progres ----
+  const mulaiWaktu = () => Date.now();
+  let t0;
+  const progres = setInterval(() => {
+    if (!t0) return;
+    const total = HITUNG_MUNDUR * 1000 + (NAMA.length + TEKS.length) * KECEPATAN + 1500;
+    isi.style.width = Math.min(100, ((Date.now() - t0) / total) * 100) + "%";
+  }, 300);
+
+  function ketik(el, teks, cb, nada) {
+    let i = 0;
+    const t = setInterval(() => {
+      const h = teks[i++];
+      el.textContent += h;
+      if (h !== " ") bip(nada + Math.random() * 80, 0.04);
+      if (i >= teks.length) { clearInterval(t); cb && cb(); }
+    }, KECEPATAN);
+  }
+
+  function hitungMundur(n, cb) {
+    if (n <= 0) return cb();
+    elHitung.textContent = n;
+    bip(200, 0.2, "square", 0.08);
+    getar(80);
+    setTimeout(() => hitungMundur(n - 1, cb), 900);
+  }
+
+  function selesai() {
+    if (sudahSelesai) return;
+    sudahSelesai = true;
+    getar(0);
+    clearInterval(progres);
+    isi.style.width = "100%";
+    utama.classList.remove("goyang");
+    setTimeout(() => {
+      utama.style.opacity = 0;
+      setTimeout(() => {
+        clearInterval(matrixTimer);
+        utama.remove();
+        keluarLayarPenuh();
+        konten.style.display = "block";
+        document.body.style.overflow = "auto";
+        document.body.style.touchAction = "auto";
+      }, 1200);
+    }, 800);
+  }
+
+  function mulai() {
+    awal.remove();
+    utama.style.display = "flex";
+    t0 = Date.now();
+
+    if (PAKAI_SUARA) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (AC) { audioCtx = new AC(); audioCtx.resume(); }
+    }
+    layarPenuh();
+    if (TEMA === "hacker") mulaiMatrix();
+    getar([200, 100, 200]);
+    dengung();
+
+    hitungMundur(HITUNG_MUNDUR, () => {
+      elHitung.style.display = "none";
+      ketik(elNama, NAMA, () => {
+        elNama.classList.remove("kursor");
+        utama.classList.add("goyang");
+        getar([100, 50, 100, 50, 300]);
+        bip(120, 0.4, "sawtooth", 0.08);
+        elTeks.classList.add("kursor");
+        ketik(elTeks, TEKS, () => {
+          elTeks.classList.remove("kursor");
+          selesai();
+        }, 500);
+      }, 300);
+    });
+
+    setTimeout(selesai, BATAS_DETIK * 1000);
+  }
+
+  awal.addEventListener("click", mulai, { once: true });
+  awal.addEventListener("touchend", e => { e.preventDefault(); mulai(); }, { once: true });
+</script>
+</body>
+</html>
+```
